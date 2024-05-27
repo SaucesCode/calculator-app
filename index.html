@@ -134,35 +134,70 @@
       }
 
       /* Tablet screen */
-      @media only screen and (min-width: 500px) and (max-width: 800px) {
+      @media only screen and (min-width: 768px) and (max-width: 991px) {
+        .screen {
+          height: 80px;
+          font-size: 30px;
+        }
+
         .btn,
         .btn-op,
         .btn-eq {
-          height: 4em;
-          font-size: 1em;
+          padding: 15px;
+          font-size: 1.5rem;
         }
-        .buttons {
-          display: grid;
-        }
+
         .btn-eq {
-          height: 9em;
+          grid-row: span 2;
+        }
+      }
+      /* smaller tablets and larger smartphones */
+      @media only screen and (min-width: 600px) and (max-width: 768px) {
+        .screen {
+          height: 70px;
+          font-size: 25px;
+        }
+
+        .btn,
+        .btn-op,
+        .btn-eq {
+          padding: 12px;
+          font-size: 1.2rem;
+        }
+
+        .btn-eq {
           grid-row: span 2;
         }
       }
 
-      /* Position the history display below the screen */
-      .history-container {
-        margin-top: 10px;
-        padding-top: 10px;
-        border-top: 1px solid rgba(255, 255, 255, 0.3);
+      /* mobile  */
+      @media screen and (max-width: 600px) {
+        h1 {
+          font-size: 1.5rem;
+          text-align: center;
+        }
+
+        .screen {
+          height: 60px;
+          font-size: 20px;
+        }
+
+        .buttons {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        .btn,
+        .btn-op,
+        .btn-eq {
+          padding: 10px;
+          font-size: 1rem;
+        }
+
+        .btn-eq {
+          grid-row: span 2;
+        }
       }
 
-      #history {
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.7);
-        max-height: 100px; /* Limit the height to ensure scrollability if needed */
-        overflow-y: auto; /* Enable vertical scrolling if history exceeds container height */
-      }
     </style>
   </head>
   <body>
