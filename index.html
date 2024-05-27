@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="calculator.png" />
+    <title>Calculator App</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: linear-gradient(135deg, #1a2980, #26d0ce);
+        transition: background-color 0.5s ease;
+      }
+
+      body:hover {
+        background: linear-gradient(135deg, #19214f, #30a9b6);
+      }
+
+      /* whole container */
+      .calculator {
+        width: 515px;
+        background: linear-gradient(135deg, #212121, #2b2b2b);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        margin: 50px auto;
+        border-radius: 10px;
+        padding: 20px;
+      }
+
+      /* screen or display */
+      .screen {
+        width: 96%;
+        height: 100px;
+        font-size: 35px;
+        text-align: right;
+        border: none;
+        background-color: #2b292a;
+        color: white;
+        margin: 10px 0 10px 0;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+        transition: all 0.3s ease-in-out;
+      }
+      .screen:hover {
+        background: #363033;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      /* buttons container */
+      .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        width: 100%;
+        background-color: #212121;
+      }
+
+      /* number buttons */
+      .btn {
+        width: 110px;
+        height: 110px;
+        font-size: 2rem;
+        margin: 8px;
+        border-radius: 10px;
+        border: none;
+        color: white;
+        background: linear-gradient(135deg, #343434, #4f4b4b);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn:hover {
+        background: #4f4b4b;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        /* transform: scale(1.05);
+        transition: transform 0.3s ease; */
+      }
+      .btn:active {
+        background: #6e6868;
+        transform: translateY(2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      /* operators button */
+      .btn-op {
+        width: 110px;
+        height: 110px;
+        font-size: 2rem;
+        margin: 8px;
+        border-radius: 10px;
+        border: none;
+        background: linear-gradient(135deg, #1a3e4a, #274d59);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        color: #e9f7fe;
+      }
+      .btn-op:hover {
+        background: #014d67;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      }
+      .btn-op:active {
+        background: #3a525a;
+        transform: translateY(2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      /* equal button */
+      .btn-eq {
+        width: 110px;
+        height: 240px;
+        font-size: 2rem;
+        margin: 8px;
+        border-radius: 10px;
+        border: none;
+        background: linear-gradient(135deg, #045a77, #0684b0);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        color: #e9f7fe;
+        grid-row: span 2;
+      }
+      .btn-eq:hover {
+        background: #0279a1;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      }
+      .btn-eq:active {
+        background: rgb(1, 102, 124);
+        transform: translateY(2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Tablet screen */
+      @media only screen and (min-width: 500px) and (max-width: 800px) {
+        .btn,
+        .btn-op,
+        .btn-eq {
+          height: 4em;
+          font-size: 1em;
+        }
+        .buttons {
+          display: grid;
+        }
+        .btn-eq {
+          height: 9em;
+          grid-row: span 2;
+        }
+      }
+
+      /* Position the history display below the screen */
+      .history-container {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      #history {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.7);
+        max-height: 100px; /* Limit the height to ensure scrollability if needed */
+        overflow-y: auto; /* Enable vertical scrolling if history exceeds container height */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Text -->
+    <h1
+      style="
+        text-align: center;
+        color: rgb(255, 255, 255);
+        margin-top: 50px;
+        font-family: Georgia;
+      "
+    >
+      Calculator App
+    </h1>
+
+    <div class="calculator">
+      <!-- Screen -->
+      <div class="head">
+        <input type="text" class="screen" id="result" readonly />
+      </div>
+
+      <!-- Buttons -->
+      <div class="buttons">
+        <input type="button" value="C" class="btn-op" onclick="clearInput()" />
+        <input
+          type="button"
+          value="DEL"
+          class="btn-op"
+          onclick="deletefunc()"
+        />
+        <input type="button" value="-" class="btn-op" onclick="minus()" />
+        <input type="button" value="÷" class="btn-op" onclick="division()" />
+        <input type="button" value="7" class="btn" onclick="appendNum(7)" />
+        <input type="button" value="8" class="btn" onclick="appendNum(8)" />
+        <input type="button" value="9" class="btn" onclick="appendNum(9)" />
+        <input type="button" value="x" class="btn-op" onclick="multiply()" />
+        <input type="button" value="4" class="btn" onclick="appendNum(4)" />
+        <input type="button" value="5" class="btn" onclick="appendNum(5)" />
+        <input type="button" value="6" class="btn" onclick="appendNum(6)" />
+        <input type="button" value="+" class="btn-op" onclick="add()" />
+        <input type="button" value="1" class="btn" onclick="appendNum(1)" />
+        <input type="button" value="2" class="btn" onclick="appendNum(2)" />
+        <input type="button" value="3" class="btn" onclick="appendNum(3)" />
+        <input type="button" value="=" class="btn-eq" onclick="calculate()" />
+        <input type="button" value="00" class="btn" onclick="appendNum('00')" />
+        <input type="button" value="0" class="btn" onclick="appendNum(0)" />
+        <input type="button" value="." class="btn" onclick="appendNum('.')" />
+      </div>
+    </div>
+    <audio src="click.wav" id="sound"></audio>
+
+    <script>
+      let currentOperator = "";
+      let currentInput = "";
+      const display = document.getElementById("result");
+
+      //input
+      function appendNum(number) {
+        currentInput += number;
+        display.value = currentInput;
+        clicksound();
+      }
+
+      //clear
+      function clearInput() {
+        currentOperator = "";
+        currentInput = "";
+        display.value = "";
+        clicksound();
+      }
+
+      // operators function
+      function add() {
+        currentOperator = "+";
+        currentInput += currentOperator;
+        display.value = currentInput;
+        clicksound();
+      }
+      function minus() {
+        currentOperator = "-";
+        currentInput += currentOperator;
+        display.value = currentInput;
+        clicksound();
+      }
+      function multiply() {
+        currentOperator = "*";
+        currentInput += currentOperator;
+        display.value = currentInput;
+        clicksound();
+      }
+      function division() {
+        currentOperator = "/";
+        currentInput += currentOperator;
+        display.value = currentInput;
+        clicksound();
+      }
+
+      //equal function
+      function calculate() {
+        try {
+          const result = eval(currentInput);
+          display.value = result;
+          currentOperator = "";
+          currentInput = result.toString();
+          clicksound();
+        } catch (error) {
+          display.value = "Error";
+          currentInput = "";
+        }
+      }
+
+      //delete function
+      function deletefunc() {
+        currentInput = currentInput.slice(0, -1);
+        display.value = currentInput;
+        clicksound();
+      }
+
+      function clicksound() {
+        let audio = document.getElementById("sound");
+        audio.play();
+      }
+    </script>
+  </body>
+</html>
