@@ -154,7 +154,7 @@
       /* smaller tablets and larger smartphones */
       @media only screen and (min-width: 600px) and (max-width: 768px) {
         .screen {
-          height: 70px;
+          height: 50px;
           font-size: 25px;
         }
 
@@ -171,29 +171,36 @@
       }
 
       /* mobile  */
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 415px) {
         h1 {
           font-size: 1.5rem;
-          text-align: center;
+          margin-top: 0;
         }
 
+        .calculator {
+          width: 80%;
+          margin-top: 20px;
+        }
         .screen {
-          height: 60px;
+          height: 40px;
           font-size: 20px;
         }
 
         .buttons {
-          grid-template-columns: repeat(4, 1fr);
+          width: 100%;
+          display: grid;
         }
 
         .btn,
         .btn-op,
         .btn-eq {
-          padding: 10px;
-          font-size: 1rem;
+          width: 4rem;
+          height: 4rem;
+          font-size: 10px;
         }
 
         .btn-eq {
+          height: 9rem;
           grid-row: span 2;
         }
       }
