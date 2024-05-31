@@ -24,6 +24,14 @@
         background: linear-gradient(135deg, #19214f, #30a9b6);
       }
 
+      body.dark-mode {
+        background: linear-gradient(135deg, #1a2980, #26d0ce);
+      }
+
+      body.light-mode {
+        background: linear-gradient(135deg, #ffffff, #e0e0e0);
+      }
+
       /* whole container */
       .calculator {
         width: 515px;
@@ -32,6 +40,11 @@
         margin: 50px auto;
         border-radius: 10px;
         padding: 20px;
+      }
+
+      body.light-mode .calculator {
+        background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
       }
 
       /* screen or display */
@@ -49,10 +62,32 @@
         box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
         transition: all 0.3s ease-in-out;
       }
+
+      body.light-mode .screen {
+        background-color: #ffffff;
+        color: black;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
       .screen:hover {
         background: #363033;
         transform: translateY(-3px);
         box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      @keyframes screenFlash {
+        0% {
+          background-color: #2b292a;
+        }
+        50% {
+          background-color: #4f4b4b;
+        }
+        100% {
+          background-color: #2b292a;
+        }
+      }
+
+      .screen.flash {
+        animation: screenFlash 0.5s;
       }
 
       /* buttons container */
@@ -60,7 +95,12 @@
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         width: 100%;
-        background-color: #212121;
+      }
+
+      body.light-mode .btn,
+      body.light-mode .btn-op,
+      body.light-mode .btn-eq {
+        color: black;
       }
 
       /* number buttons */
@@ -76,6 +116,11 @@
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
       }
 
+      body.light-mode .btn {
+        background: linear-gradient(135deg, #e0e0e0, #c0c0c0);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      }
+
       .btn:hover {
         background: #4f4b4b;
         transform: translateY(-3px);
@@ -87,6 +132,7 @@
         background: #6e6868;
         transform: translateY(2px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        animation: buttonClick 0.2s;
       }
 
       /* operators button */
@@ -101,6 +147,12 @@
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
         color: #e9f7fe;
       }
+
+      body.light-mode .btn-op {
+        background: linear-gradient(135deg, #e0f4f9, #c0e0e6);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      }
+
       .btn-op:hover {
         background: #014d67;
         transform: translateY(-3px);
@@ -110,6 +162,7 @@
         background: #3a525a;
         transform: translateY(2px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        animation: buttonClick 0.2s;
       }
 
       /* equal button */
@@ -125,6 +178,12 @@
         color: #e9f7fe;
         grid-row: span 2;
       }
+
+      body.light-mode .btn-eq {
+        background: linear-gradient(135deg, #e0f4f9, #c0e0e6);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      }
+
       .btn-eq:hover {
         background: #0279a1;
         transform: translateY(-3px);
@@ -134,6 +193,19 @@
         background: rgb(1, 102, 124);
         transform: translateY(2px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        animation: buttonClick 0.2s;
+      }
+
+      @keyframes buttonClick {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(0.95);
+        }
+        100% {
+          transform: scale(1);
+        }
       }
 
       /* Tablet screen */
@@ -201,7 +273,7 @@
         }
 
         .btn-eq {
-          height: 9rem;
+          height: 12.5rem;
           grid-row: span 2;
         }
       }
@@ -235,7 +307,7 @@
         }
 
         .btn-eq {
-          height: 11rem;
+          height: 11.5rem;
           grid-row: span 2;
         }
       }
@@ -351,6 +423,7 @@
           margin-top: 20px;
         }
         .screen {
+          width: 95%;
           height: 40px;
           font-size: 20px;
         }
@@ -409,40 +482,6 @@
         }
       }
 
-      @media only screen and (min-width: 535px) and (max-width: 600px) {
-        h1 {
-          font-size: 1.5rem;
-          margin-top: 0;
-        }
-
-        .calculator {
-          width: 80%;
-          margin-top: 20px;
-        }
-        .screen {
-          height: 40px;
-          font-size: 20px;
-        }
-
-        .buttons {
-          width: 100%;
-          display: grid;
-        }
-
-        .btn,
-        .btn-op,
-        .btn-eq {
-          width: 5.7rem;
-          height: 5.7rem;
-          font-size: 20px;
-        }
-
-        .btn-eq {
-          height: 9rem;
-          grid-row: span 2;
-        }
-      }
-
       @media only screen and (min-width: 381px) and (max-widht: 415px) {
         h1 {
           font-size: 1.5rem;
@@ -488,6 +527,7 @@
           margin-top: 20px;
         }
         .screen {
+          width: 95%;
           height: 30px;
           font-size: 20px;
         }
@@ -545,22 +585,45 @@
           grid-row: span 2;
         }
       }
-    </style>
-  </head>
-  <body>
-    <!-- Text -->
-    <h1
-      style="
+
+      #modeToggle {
+        padding-left: 5px;
+        padding-right: 5px;
+        background-color: #2b292a;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 14px;
+      }
+
+      #modeToggle:active {
+        transform: translateY(2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      body.light-mode #modeToggle {
+        background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+        color: rgb(0, 0, 0);
+      }
+
+      body.light-mode h1 {
+        color: black;
+      }
+
+      h1 {
         text-align: center;
         color: rgb(255, 255, 255);
         margin-top: 50px;
         font-family: Georgia;
-      "
-    >
-      Calculator App
-    </h1>
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Text -->
+    <h1>Calculator App</h1>
 
     <div class="calculator">
+      <button onclick="toggleMode()" id="modeToggle">Change Mode</button>
       <!-- Screen -->
       <div class="head">
         <input type="text" class="screen" id="result" readonly />
@@ -649,6 +712,11 @@
           currentOperator = "";
           currentInput = result.toString();
           clicksound();
+
+          display.classList.add("flash");
+          setTimeout(() => {
+            display.classList.remove("flash");
+          }, 500);
         } catch (error) {
           display.value = "Error";
           currentInput = "";
@@ -660,6 +728,11 @@
         currentInput = currentInput.slice(0, -1);
         display.value = currentInput;
         clicksound();
+      }
+
+      function toggleMode() {
+        document.body.classList.toggle("light-mode");
+        document.body.classList.toggle("dark-mode");
       }
 
       function clicksound() {
